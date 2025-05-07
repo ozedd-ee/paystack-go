@@ -7,18 +7,22 @@ paystack-go is a Go client library for accessing the Paystack API.
 Where possible, the services available on the client groups the API into logical chunks and correspond to the structure of the Paystack API documentation at https://developers.paystack.co/v1.0/reference.
 
 ## Usage
-
+Reference paystack-go in your go program:
 ``` go
 import "github.com/rpip/paystack-go"
+```
 
+Initialize new Paystack client:
+``` go
 apiKey := "sk_test_b748a89ad84f35c2f1a8b81681f956274de048bb"
 
-// second param is an optional http client, allowing overriding of the HTTP client to use.
-// This is useful if you're running in a Google AppEngine environment
-// where the http.DefaultClient is not available.
+// The second parameter is an optional HTTP client, allowing overriding of the HTTP client to use. This is useful if you're running in a Google AppEngine environment where the http.DefaultClient is not available.
 client := paystack.NewClient(apiKey)
-
-recipient := &TransferRecipient{
+```
+### Transfers
+Create a TransferRecipient:
+``` go
+transferRecipient := &TransferRecipient{
     Type:          "Nuban",
     Name:          "Customer 1",
     Description:   "Demo customer",
@@ -28,35 +32,35 @@ recipient := &TransferRecipient{
     Metadata:      map[string]interface{}{"job": "Plumber"},
 }
 
-recipient1, err := client.Transfer.CreateRecipient(recipient)
-
-req := &TransferRequest{
-    Source:    "balance",
-    Reason:    "Delivery pickup",
-    Amount:    30,
+recipient, err := client.Transfer.CreateRecipient(transferRecipient)
+// You can store the RecipientCode(recipient.RecipientCode) and retrieve as desired for transfers
+```
+Initiate transfer:
+``` go
+transferRequest := &TransferRequest{
+    Source:    "balance", // Funds to be transferred from your PayStack balance
+    Amount:    30, // In least denomination (Kobo if NGN, pesewas if GHS)
     Recipient: recipient1.RecipientCode,
+    Currency: "NGN" // Optional. Defaults to NGN
+    Reason:    "Delivery pickup", // Optional
+
 }
 
-transfer, err := client.Transfer.Initiate(req)
+transfer, err := client.Transfer.Initiate(transferRequest)
 if err != nil {
     // do something with error
 }
-
-// retrieve list of plans
-plans, err := client.Plan.List()
-
-for i, plan := range plans.Values {
-  fmt.Printf("%+v", plan)
-}
-
-cust := &Customer{
+```
+### Customers
+``` go
+customer := &Customer{
     FirstName: "User123",
     LastName:  "AdminUser",
     Email:     "user123@gmail.com",
     Phone:     "+23400000000000000",
 }
 // create the customer
-customer, err := client.Customer.Create(cust)
+customer, err := client.Customer.Create(customer)
 if err != nil {
     // do something with error
 }
