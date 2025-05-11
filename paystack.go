@@ -59,6 +59,7 @@ type Client struct {
 	Charge       *ChargeService
 	Bank         *BankService
 	BulkCharge   *BulkChargeService
+	Split        *SplitService
 
 	LoggingEnabled bool
 	Log            Logger
