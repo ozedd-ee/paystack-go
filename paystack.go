@@ -127,6 +127,7 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	c.Charge = (*ChargeService)(&c.common)
 	c.Bank = (*BankService)(&c.common)
 	c.BulkCharge = (*BulkChargeService)(&c.common)
+	c.Split = (*SplitService)(&c.common)
 
 	return c
 }
