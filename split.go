@@ -26,12 +26,12 @@ type Split struct {
 
 // SplitRequest represents a request to create a transaction Split
 type SplitRequest struct {
-	Name             string               `json:"name,omitempty"`
-	Type             string               `json:"type,omitempty"`
-	Currency         string               `json:"currency,omitempty"`
-	Subaccounts      []BeneficiaryAccount `json:"subaccounts,omitempty"`
-	BearerType       string               `json:"bearer_type,omitempty"`       // Any of "subaccount", "account", "all-proportional","all"
-	BearerSubAccount string               `json:"bearer_subaccount,omitempty"` // SubAccountCode of bearer, if SubAccount
+	Name             string                      `json:"name,omitempty"`
+	Type             string                      `json:"type,omitempty"`
+	Currency         string                      `json:"currency,omitempty"`
+	Subaccounts      []BeneficiaryAccountRequest `json:"subaccounts,omitempty"`
+	BearerType       string                      `json:"bearer_type,omitempty"`       // Any of "subaccount", "account", "all-proportional","all"
+	BearerSubAccount string                      `json:"bearer_subaccount,omitempty"` // SubAccountCode of bearer, if SubAccount
 }
 
 // SplitList is a list object for Splits.
@@ -52,6 +52,12 @@ type SplitUpdateRequest struct {
 type BeneficiaryAccount struct {
 	Subaccount SubAccount `json:"subaccount,omitempty"`
 	Share      int        `json:"share,omitempty"`
+}
+
+// Represents a SubAccount code paired with its allocated share of the split. Used in requests to create Splits.
+type BeneficiaryAccountRequest struct {
+	SubAccountCode string `json:"subaccount,omitempty"`
+	Share          string `json:"share,omitempty"`
 }
 
 // Create a split payment on your integration
