@@ -57,7 +57,7 @@ type BeneficiaryAccount struct {
 // Represents a SubAccount code paired with its allocated share of the split. Used in requests to create Splits.
 type BeneficiaryAccountRequest struct {
 	SubAccountCode string `json:"subaccount,omitempty"`
-	Share          string `json:"share,omitempty"`
+	Share          int `json:"share,omitempty"`
 }
 
 // Create a split payment on your integration
