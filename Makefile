@@ -31,6 +31,10 @@ test: fmt lint vet
 	@echo "+ $@"
 	@PAYSTACK_KEY=$(PAYSTACK_KEY) go test -v -tags "$(BUILDTAGS) cgo" $(shell go list ./... | grep -v vendor)
 
+test-one:
+	@echo "+ $@"
+	@PAYSTACK_KEY=$(PAYSTACK_KEY) go test -v -tags "$(BUILDTAGS) cgo" -run "$(TEST)" $(shell go list ./... | grep -v vendor)
+
 vet:
 	@echo "+ $@"
 	@go vet $(shell go list ./... | grep -v vendor)
