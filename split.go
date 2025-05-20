@@ -119,6 +119,10 @@ func (s *SplitService) UpdateSubAccounts(splitID int, subAccountCode string, sha
 // For more details see https://paystack.com/docs/api/split/#remove-subaccount
 func (s *SplitService) RemoveSubAccount(splitID int, subAccountCode string) error {
 	url := fmt.Sprintf("split/%d/subaccount/remove", splitID)
-	err := s.client.Call("POST", url, subAccountCode, nil)
+	split := &Split{}
+	requestData := map[string]string{
+		"subaccount": subAccountCode,
+	}
+	err := s.client.Call("POST", url, requestData, split)
 	return err
 }

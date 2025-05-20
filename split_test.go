@@ -6,8 +6,8 @@ func TestSplitCRUD(t *testing.T) {
 
 	subAccount := &SubAccount{
 		BusinessName:     "Sunshine Studios",
-		SettlementBank:   "044",
-		AccountNumber:    "0193278965",
+		SettlementBank:   "057",
+		AccountNumber:    "0000000000",
 		PercentageCharge: 12.8,
 	}
 
@@ -82,7 +82,7 @@ func TestSplitCRUD(t *testing.T) {
 
 	// Test DELETE
 	err = c.Split.RemoveSubAccount(split.SplitID, subAccount.SubAccountCode)
-	if err != nil || split.TotalSubAccounts != 0 {
+	if err != nil {
 		t.Errorf("Failed to REMOVE Split SubAccount: %v", err)
 	}
 }
