@@ -61,6 +61,7 @@ type Client struct {
 	BulkCharge   *BulkChargeService
 	Split        *SplitService
 	Refund       *RefundService
+	Dispute      *DisputeService
 
 	LoggingEnabled bool
 	Log            Logger
@@ -130,6 +131,7 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	c.BulkCharge = (*BulkChargeService)(&c.common)
 	c.Split = (*SplitService)(&c.common)
 	c.Refund = (*RefundService)(&c.common)
+	c.Dispute = (*DisputeService)(&c.common)
 
 	return c
 }
