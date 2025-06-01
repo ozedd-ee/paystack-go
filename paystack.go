@@ -63,6 +63,7 @@ type Client struct {
 	Refund                  *RefundService
 	Dispute                 *DisputeService
 	DedicatedVirtualAccount *DedicatedVirtualAccountService
+	Product                 *ProductService
 
 	LoggingEnabled bool
 	Log            Logger
@@ -134,6 +135,7 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	c.Refund = (*RefundService)(&c.common)
 	c.Dispute = (*DisputeService)(&c.common)
 	c.DedicatedVirtualAccount = (*DedicatedVirtualAccountService)(&c.common)
+	c.Product = (*ProductService)(&c.common)
 
 	return c
 }
